@@ -9,9 +9,8 @@ const refs = {
   minutes: document.querySelector('[data-minutes]'),
   seconds: document.querySelector('[data-seconds]'),
 };
-
 refs.button.disabled = true;
-let currentTime = null;
+let currentTime = Date.now();
 let chosenTime = null;
 let defTime = null;
 let convertDate = {};
@@ -21,25 +20,21 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    // currentTime = new Date().getTime();
-    currentTime = Date.now();
-
-    chosenTime = new Date(selectedDates[0]).getTime();
-    console.log(chosenTime);
-    console.log(currentTime);
+    chosenTime = selectedDates[0].getTime();
     if (currentTime > chosenTime) {
       alert('Please choose a date in the future');
       refs.button.disabled = true;
       return;
     }
-    refs.button.disabled = false;
-    defTime = chosenTime - currentTime;
-    console.log(defTime);
-    convertDate = convertMs(defTime);
-    console.log(convertDate);
+    // refs.button.disabled = false;
+    // defTime = chosenTime - currentTime;
+    // console.log(defTime);
+    // convertDate = convertMs(defTime);
+    // console.log(convertDate);
   },
 };
-flatpickr(refs.input, options);
+const fp = flatpickr(refs.input, options);
+console.log(fp.selectedDates[0]);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time

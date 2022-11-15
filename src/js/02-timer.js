@@ -11,18 +11,20 @@ const refs = {
 };
 
 refs.button.disabled = true;
-
+let currentTime = null;
+let chosenTime = null;
 let defTime = null;
-let convertData = {};
+let convertDate = {};
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const currentTime = new Date().getTime();
-    // const chosenTime = Date.now(selectedDates[0]);
-    const chosenTime = new Date().getTime(selectedDates[0]);
+    // currentTime = new Date().getTime();
+    currentTime = Date.now();
+
+    chosenTime = new Date(selectedDates[0]).getTime();
     console.log(chosenTime);
     console.log(currentTime);
     if (currentTime > chosenTime) {
@@ -33,8 +35,8 @@ const options = {
     refs.button.disabled = false;
     defTime = chosenTime - currentTime;
     console.log(defTime);
-    convertData = convertMs(defTime);
-    console.log(convertData);
+    convertDate = convertMs(defTime);
+    console.log(convertDate);
   },
 };
 flatpickr(refs.input, options);
@@ -58,7 +60,7 @@ function convertMs(ms) {
 
 function timer(e) {
   setInterval(() => {
-    // console.log(convertData);
+    // console.log(convertDate);
   }, 1000);
 }
 

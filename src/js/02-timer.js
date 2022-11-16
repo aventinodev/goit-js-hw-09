@@ -11,16 +11,17 @@ const refs = {
 };
 refs.button.disabled = true;
 let currentTime = Date.now();
-let chosenTime = null;
-let defTime = null;
-let convertDate = {};
+
+let defTime = 0;
+let convertDateObj = {};
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    chosenTime = selectedDates[0].getTime();
+    const chosenTime = selectedDates[0].getTime();
+    console.log(chosenTime);
     if (currentTime > chosenTime) {
       alert('Please choose a date in the future');
       refs.button.disabled = true;
@@ -29,12 +30,12 @@ const options = {
     // refs.button.disabled = false;
     // defTime = chosenTime - currentTime;
     // console.log(defTime);
-    // convertDate = convertMs(defTime);
-    // console.log(convertDate);
+    // convertDateObj = convertMs(defTime);
+    // console.log(convertDateObj);
   },
 };
 const fp = flatpickr(refs.input, options);
-console.log(fp.selectedDates[0]);
+console.log(fp.selectedDates[0].getTime());
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -53,10 +54,10 @@ function convertMs(ms) {
 // console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
 // console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
-function timer(e) {
-  setInterval(() => {
-    // console.log(convertDate);
-  }, 1000);
-}
+// function timer(e) {
+//   setInterval(() => {
+//     // console.log(convertDate);
+//   }, 1000);
+// }
 
-refs.button.addEventListener('click', timer());
+// refs.button.addEventListener('click', timer());

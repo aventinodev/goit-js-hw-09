@@ -3,19 +3,22 @@ import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
 const refs = {
+  // days: document.querySelector('[data-days]'),
+  // hours: document.querySelector('[data-hours]'),
+  // minutes: document.querySelector('[data-minutes]'),
+  // seconds: document.querySelector('[data-seconds]'),
   input: document.querySelector('#datetime-picker'),
   button: document.querySelector('[data-start]'),
-  days: document.querySelector('[data-days]'),
-  hours: document.querySelector('[data-hours]'),
-  minutes: document.querySelector('[data-minutes]'),
-  seconds: document.querySelector('[data-seconds]'),
+  value: document.querySelectorAll('.value'),
 };
+
 refs.button.disabled = true;
 let currentTime = 0;
 let selectedTime = 0;
 let timeLeft = 0;
 let timeLeftObj = {};
-let objValue = [];
+let arrayValue = [];
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -55,11 +58,22 @@ function addLeadingZero(value) {
 }
 function upDateTime(obj) {
   let { days, hours, minutes, seconds } = obj;
-  objValue = Object.values(obj);
-  refs.days.textContent = addLeadingZero(objValue[0]);
-  refs.hours.textContent = addLeadingZero(objValue[1]);
-  refs.minutes.textContent = addLeadingZero(objValue[2]);
-  refs.seconds.textContent = addLeadingZero(objValue[3]);
+  arrayValue = Object.values(obj);
+  for (let i = 0; i < arrayValue.length; i += 1) {
+    // value[i].innerHTML = addLeadingZero(arrayValue[i]);
+    refs.value[i].textContent = addLeadingZero(arrayValue[i]);
+  }
+
+  // arrayValue = Object.values(obj);
+  // refs.days.textContent = addLeadingZero(arrayValue[0]);
+  // refs.hours.textContent = addLeadingZero(arrayValue[1]);
+  // refs.minutes.textContent = addLeadingZero(arrayValue[2]);
+  // refs.seconds.textContent = addLeadingZero(arrayValue[3]);
+  //          ==============================
+  // refs.days.textContent = addLeadingZero(days);
+  // refs.hours.textContent = addLeadingZero(hours);
+  // refs.minutes.textContent = addLeadingZero(minutes);
+  // refs.seconds.textContent = addLeadingZero(seconds);
 }
 
 function timer() {
@@ -68,14 +82,12 @@ function timer() {
     currentTime = Date.now();
     timeLeft = selectedTime - currentTime;
     timeLeftObj = convertMs(timeLeft);
-    console.log('time left:', timeLeftObj);
     upDateTime(timeLeftObj);
-    console.log(timeLeft);
+
     if (timeLeft < 1000) {
       clearInterval(startTimer);
       refs.button.disabled = false;
     }
   }, 1000);
 }
-
 refs.button.addEventListener('click', timer);

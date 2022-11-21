@@ -61,22 +61,23 @@ function upDateTime(obj) {
   let { days, hours, minutes, seconds } = obj;
   let arrayValue = Object.values(obj);
   for (let i = 0; i < arrayValue.length; i += 1) {
-    refs[i].innerHTML = addLeadingZero(arrayValue[i]);
-    // value[i].textContent = addLeadingZero(arrayValue[i]);
+    // refs[i].innerHTML = addLeadingZero(arrayValue[i]);
+    console.log(refs[i]);
+    console.log('ffff');
+    // refs[i].dataset.value.textContent = addLeadingZero(arrayValue[i]);
+    // let arrayValue = Object.keys(obj);
+    // console.log(arrayValue);
+    // refs.days.textContent = addLeadingZero(arrayValue[0]);
+    // refs.hours.textContent = addLeadingZero(arrayValue[1]);
+    // refs.minutes.textContent = addLeadingZero(arrayValue[2]);
+    // refs.seconds.textContent = addLeadingZero(arrayValue[3]);
+    //          ==============================
+    // refs.days.textContent = addLeadingZero(days);
+    // refs.hours.textContent = addLeadingZero(hours);
+    // refs.minutes.textContent = addLeadingZero(minutes);
+    // refs.seconds.textContent = addLeadingZero(seconds);
   }
-
-  // arrayValue = Object.values(obj);
-  // refs.days.textContent = addLeadingZero(arrayValue[0]);
-  // refs.hours.textContent = addLeadingZero(arrayValue[1]);
-  // refs.minutes.textContent = addLeadingZero(arrayValue[2]);
-  // refs.seconds.textContent = addLeadingZero(arrayValue[3]);
-  //          ==============================
-  // refs.days.textContent = addLeadingZero(days);
-  // refs.hours.textContent = addLeadingZero(hours);
-  // refs.minutes.textContent = addLeadingZero(minutes);
-  // refs.seconds.textContent = addLeadingZero(seconds);
 }
-
 function timer() {
   const startTimer = setInterval(() => {
     refs.button.disabled = true;
@@ -84,7 +85,7 @@ function timer() {
     // let timeLeft = selectedTime - currentTime;
     let timeLeftObj = convertMs(timeLeft);
     upDateTime(timeLeftObj);
-
+    console.log('ffff');
     if (timeLeft < 1000) {
       clearInterval(startTimer);
       refs.button.disabled = false;

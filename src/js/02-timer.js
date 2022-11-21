@@ -3,21 +3,21 @@ import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
 const refs = {
-  // days: document.querySelector('[data-days]'),
-  // hours: document.querySelector('[data-hours]'),
-  // minutes: document.querySelector('[data-minutes]'),
-  // seconds: document.querySelector('[data-seconds]'),
+  days: document.querySelector('[data-days]'),
+  hours: document.querySelector('[data-hours]'),
+  minutes: document.querySelector('[data-minutes]'),
+  seconds: document.querySelector('[data-seconds]'),
   input: document.querySelector('#datetime-picker'),
   button: document.querySelector('[data-start]'),
-  value: document.querySelectorAll('.value'),
+  // value: document.querySelectorAll('.value'),
 };
 
 refs.button.disabled = true;
-let currentTime = 0;
+// let currentTime = 0;
 let selectedTime = 0;
 let timeLeft = 0;
-let timeLeftObj = {};
-let arrayValue = [];
+// let timeLeftObj = {};
+// let arrayValue = [];
 
 const options = {
   enableTime: true,
@@ -25,9 +25,10 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    currentTime = Date.now();
+    let currentTime = Date.now();
     selectedTime = selectedDates[0].getTime();
-    if (currentTime > selectedTime) {
+    timeLeft = selectedTime - currentTime;
+    if (timeLeft <= 0) {
       Notiflix.Notify.failure('Please choose a date in the future');
       // alert('Please choose a date in the future');
       refs.button.disabled = true;
@@ -58,10 +59,10 @@ function addLeadingZero(value) {
 }
 function upDateTime(obj) {
   let { days, hours, minutes, seconds } = obj;
-  arrayValue = Object.values(obj);
+  let arrayValue = Object.values(obj);
   for (let i = 0; i < arrayValue.length; i += 1) {
     // value[i].innerHTML = addLeadingZero(arrayValue[i]);
-    refs.value[i].textContent = addLeadingZero(arrayValue[i]);
+    refs[i].textContent = addLeadingZero(arrayValue[i]);
   }
 
   // arrayValue = Object.values(obj);
@@ -79,9 +80,9 @@ function upDateTime(obj) {
 function timer() {
   const startTimer = setInterval(() => {
     refs.button.disabled = true;
-    currentTime = Date.now();
-    timeLeft = selectedTime - currentTime;
-    timeLeftObj = convertMs(timeLeft);
+    // currentTime = Date.now();
+    // let timeLeft = selectedTime - currentTime;
+    let timeLeftObj = convertMs(timeLeft);
     upDateTime(timeLeftObj);
 
     if (timeLeft < 1000) {

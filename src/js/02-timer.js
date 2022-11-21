@@ -61,8 +61,8 @@ function upDateTime(obj) {
   let { days, hours, minutes, seconds } = obj;
   let arrayValue = Object.values(obj);
   for (let i = 0; i < arrayValue.length; i += 1) {
-    // value[i].innerHTML = addLeadingZero(arrayValue[i]);
-    refs[i].textContent = addLeadingZero(arrayValue[i]);
+    refs[i].innerHTML = addLeadingZero(arrayValue[i]);
+    // value[i].textContent = addLeadingZero(arrayValue[i]);
   }
 
   // arrayValue = Object.values(obj);

@@ -11,7 +11,7 @@ const refs = {
   button: document.querySelector('[data-start]'),
 };
 refs.button.disabled = true;
-let selectedTime = 0;
+// let selectedTime = 0;
 let timeLeft = 0;
 
 const options = {
@@ -21,7 +21,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     let currentTime = Date.now();
-    selectedTime = selectedDates[0].getTime();
+    let selectedTime = selectedDates[0].getTime();
     timeLeft = selectedTime - currentTime;
     if (timeLeft <= 0) {
       Notiflix.Notify.failure('Please choose a date in the future');

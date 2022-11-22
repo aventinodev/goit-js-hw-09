@@ -11,8 +11,7 @@ const refs = {
   button: document.querySelector('[data-start]'),
 };
 refs.button.disabled = true;
-// let selectedTime = 0;
-let timeLeft = 0;
+let selectedTime = 0;
 
 const options = {
   enableTime: true,
@@ -21,9 +20,9 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     let currentTime = Date.now();
-    let selectedTime = selectedDates[0].getTime();
-    timeLeft = selectedTime - currentTime;
-    if (timeLeft <= 0) {
+    selectedTime = selectedDates[0].getTime();
+
+    if (selectedTime < currentTime) {
       Notiflix.Notify.failure('Please choose a date in the future');
       // alert('Please choose a date in the future');
       refs.button.disabled = true;
@@ -33,7 +32,7 @@ const options = {
   },
 };
 const fp = flatpickr(refs.input, options);
-// selectedTime = fp.selectedDates[0].getTime();
+selectedTime = fp.selectedDates[0].getTime();
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -64,6 +63,8 @@ function upDateTime(obj) {
 function timer() {
   const startTimer = setInterval(() => {
     refs.button.disabled = true;
+    let currentTime = Date.now();
+    let timeLeft = selectedTime - currentTime;
     let timeLeftObj = convertMs(timeLeft);
     upDateTime(timeLeftObj);
 
